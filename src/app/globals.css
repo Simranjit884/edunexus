@@ -5,3 +5,12 @@ body,
 :root {
   height: 100%;
 }
+
+@theme {
+  --color-edunexusSky: #c3ebfa;
+  --color-edunexusSkyLight: #edf9fd;
+  --color-edunexusPurple: #cfceff;
+  --color-edunexusPurpleLight: #f1f0ff;
+  --color-edunexusYellow: #fae27c;
+  --color-edunexusYellowLight: #fefce8;
+}
