@@ -1,3 +1,4 @@
+import { role } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -122,20 +123,20 @@ const Menu = () => {
       {menuItems.map((i) => {
         return (
           <div key={i.title} className="flex flex-col gap-2">
-            <span className="my-4 hidden font-light text-gray-400 lg:block">
-              {i.title}
-            </span>
+            <span className="my-4 hidden font-light text-gray-400 lg:block">{i.title}</span>
             {i.items.map((item) => {
-              return (
-                <Link
-                  href={item.href}
-                  key={item.label}
-                  className="flex items-center justify-center gap-4 py-2 text-gray-500 lg:justify-start"
-                >
-                  <Image src={item.icon} alt="" width={20} height={20} />
-                  <span className="hidden lg:block">{item.label}</span>
-                </Link>
-              );
+              if (item.visible.includes(role)) {
+                return (
+                  <Link
+                    href={item.href}
+                    key={item.label}
+                    className="hover:bg-edunexusSkyLight flex items-center justify-center gap-4 rounded-md py-2 text-gray-500 md:px-2 lg:justify-start"
+                  >
+                    <Image src={item.icon} alt="" width={20} height={20} />
+                    <span className="hidden lg:block">{item.label}</span>
+                  </Link>
+                );
+              }
             })}
           </div>
         );
