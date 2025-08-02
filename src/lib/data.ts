@@ -915,15 +915,6 @@ export const announcementsData = [
   },
 ];
 
-// Helper function to get a date for today plus N days, at a specific hour and minute
-function getEventDate(daysFromToday: number, hour: number, minute: number) {
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-  date.setDate(date.getDate() + daysFromToday);
-  date.setHours(hour, minute, 0, 0);
-  return new Date(date);
-}
-
 export const calendarEvents = [
   {
     title: "Math",
@@ -1064,3 +1055,12 @@ export const calendarEvents = [
     end: getEventDate(4, 14, 45),
   },
 ];
+
+// Helper function to get a date for today plus N days, at a specific hour and minute
+function getEventDate(daysFromToday: number, hour: number, minute: number) {
+  const date = new Date();
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() + daysFromToday);
+  date.setHours(hour, minute, 0, 0);
+  return new Date(date);
+}
