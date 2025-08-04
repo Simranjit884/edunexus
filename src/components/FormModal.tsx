@@ -62,7 +62,7 @@ const FormModal = ({
   data?: FormData;
   id?: number;
 }) => {
-  const size = type === "create" ? "w-8 h-8" : "w-7 h-7";
+  const size = type === "create" ? "w-8 h-8 p-2" : "w-7 h-7";
   const bgColor =
     type === "create"
       ? "bg-edunexusYellow"
@@ -112,7 +112,7 @@ const FormModal = ({
         <Image src={getImageSrc(type)} alt="" width={16} height={16} />
       </button>
       {open && (
-        <div className="bg-opacity-60 absolute top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-black">
+        <div className="absolute top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-black/60">
           <div className="relative w-[90%] rounded-md bg-white p-4 md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[40%]">
             <Form />
             <div className="absolute top-4 right-4 cursor-pointer" onClick={() => setOpen(false)}>
