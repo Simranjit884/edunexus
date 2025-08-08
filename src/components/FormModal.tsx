@@ -60,7 +60,7 @@ const FormModal = ({
     | "announcement";
   type: "create" | "update" | "delete";
   data?: FormData;
-  id?: number;
+  id?: number | string;
 }) => {
   const size = type === "create" ? "w-8 h-8 p-2" : "w-7 h-7";
   const bgColor =
