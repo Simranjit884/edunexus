@@ -13,6 +13,9 @@ const TableSearch = () => {
 
     const params = new URLSearchParams(window.location.search);
     params.set("search", value);
+    if (params.has("page")) {
+      params.set("page", "1");
+    }
     router.push(`${window.location.pathname}?${params}`);
   };
 
