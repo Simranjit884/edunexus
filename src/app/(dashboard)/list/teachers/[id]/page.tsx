@@ -124,22 +124,34 @@ const SingleTeacherPage = () => {
         <div className="rounded-md bg-white p-4">
           <h1 className="text-xl font-semibold">Shortcuts</h1>
           <div className="mt-4 flex flex-wrap gap-4 text-xs text-gray-500">
-            <Link className="bg-edunexusSkyLight rounded-md p-3" href="/">
+            <Link
+              className="bg-edunexusSkyLight rounded-md p-3"
+              href={`/list/classes?supervisorId=${"teacher12"}`}
+            >
               Teacher&apos;s Classes
             </Link>
             <Link
               className="bg-edunexusPurpleLight rounded-md p-3"
-              href={`/list/students?teacherId=${"teacher2"}`}
+              href={`/list/students?teacherId=${"teacher12"}`}
             >
               Teacher&apos;s Students
             </Link>
-            <Link className="bg-edunexusYellowLight rounded-md p-3" href="/">
+            <Link
+              className="bg-edunexusYellowLight rounded-md p-3"
+              href={`/list/lessons?teacherId=${"teacher12"}`}
+            >
               Teacher&apos;s Lessons
             </Link>
-            <Link className="rounded-md bg-pink-50 p-3" href="/">
+            <Link
+              className="rounded-md bg-pink-50 p-3"
+              href={`/list/exams?teacherId=${"teacher12"}`}
+            >
               Teacher&apos;s Exams
             </Link>
-            <Link className="bg-edunexusSkyLight rounded-md p-3" href="/">
+            <Link
+              className="bg-edunexusSkyLight rounded-md p-3"
+              href={`/list/assignments?teacherId=${"teacher12"}`}
+            >
               Teacher&apos;s Assignments
             </Link>
           </div>
