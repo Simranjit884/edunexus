@@ -57,7 +57,7 @@ const ExamListPage = async ({
   const renderRow = (item: ExamList) => (
     <tr
       key={item.id}
-      className="hover:bg-lamaPurpleLight border-b border-gray-200 text-sm even:bg-slate-50"
+      className="hover:bg-edunexusPurpleLight border-b border-gray-200 text-sm even:bg-slate-50"
     >
       <td className="flex items-center gap-4 p-4">{item.lesson.subject.name}</td>
       <td>{item.lesson.class.name}</td>
@@ -168,10 +168,10 @@ const ExamListPage = async ({
         <div className="flex w-full flex-col items-center gap-4 md:w-auto md:flex-row">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
-            <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
+            <button className="bg-edunexusYellow flex h-8 w-8 items-center justify-center rounded-full">
               <Image src="/filter.png" alt="" width={14} height={14} />
             </button>
-            <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
+            <button className="bg-edunexusYellow flex h-8 w-8 items-center justify-center rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
             {(role === "admin" || role === "teacher") && <FormModal table="exam" type="create" />}
