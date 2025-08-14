@@ -1,12 +1,12 @@
 import Announcements from "@/components/Announcements";
 import AttendanceChartContainer from "@/components/AttendanceChartContainer";
 import CountChartContainer from "@/components/CountChartContainer";
-import EventCalendar from "@/components/EventCalender";
+import EventCalendarContainer from "@/components/EventCalendarContainer";
 import FinanceChart from "@/components/FinanceChart";
 import UserCard from "@/components/UserCard";
 import React from "react";
 
-const AdminPage = () => {
+const AdminPage = ({ searchParams }: { searchParams: { [keys: string]: string | undefined } }) => {
   return (
     <div className="flex flex-col gap-4 p-4 md:flex-row">
       {/** LEFT */}
@@ -36,7 +36,7 @@ const AdminPage = () => {
       </div>
       {/** RIGHT */}
       <div className="flex w-full flex-col gap-8 lg:w-1/3">
-        <EventCalendar />
+        <EventCalendarContainer searchParams={searchParams} />
         <Announcements />
       </div>
     </div>
