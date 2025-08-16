@@ -3,61 +3,47 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
 import { Class, Lesson, Prisma, Subject, Teacher } from "@/generated/prisma";
-import { lessonsData, role } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import { ITEM_PER_PAGE } from "@/lib/settings";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 
 type LessonList = Lesson & { subject: Subject } & { class: Class } & {
   teacher: Teacher;
 };
 
-const columns = [
-  {
-    header: "Subject Name",
-    accessor: "name",
-  },
-  {
-    header: "Class",
-    accessor: "class",
-  },
-  {
-    header: "Teacher",
-    accessor: "teacher",
-    className: "hidden md:table-cell",
-  },
-  {
-    header: "Actions",
-    accessor: "action",
-  },
-];
-
-const renderRow = (item: LessonList) => (
-  <tr
-    key={item.id}
-    className="hover:bg-lamaPurpleLight border-b border-gray-200 text-sm even:bg-slate-50"
-  >
-    <td className="flex items-center gap-4 p-4">{item.subject.name}</td>
-    <td>{item.class.name}</td>
-    <td className="hidden md:table-cell">{item.teacher.name + " " + item.teacher.surname}</td>
-    <td>
-      <div className="flex items-center gap-2">
-        {role === "admin" && (
-          <>
-            <FormModal table="lesson" type="update" data={item} />
-            <FormModal table="lesson" type="delete" id={item.id} />
-          </>
-        )}
-      </div>
-    </td>
-  </tr>
-);
-
 const LessonListPage = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | undefined };
 }) => {
+  const { sessionClaims } = await auth();
+  const role = (sessionClaims?.metadata as { role?: string })?.role;
+
+  const columns = [
+    {
+      header: "Subject Name",
+      accessor: "name",
+    },
+    {
+      header: "Class",
+      accessor: "class",
+    },
+    {
+      header: "Teacher",
+      accessor: "teacher",
+      className: "hidden md:table-cell",
+    },
+    ...(role === "admin"
+      ? [
+          {
+            header: "Actions",
+            accessor: "action",
+          },
+        ]
+      : []),
+  ];
+
   const { page, ...queryParams } = searchParams;
 
   const p = page ? parseInt(page) : 1;
@@ -89,6 +75,27 @@ const LessonListPage = async ({
     }
   }
 
+  const renderRow = (item: LessonList) => (
+    <tr
+      key={item.id}
+      className="hover:bg-edunexusPurpleLight border-b border-gray-200 text-sm even:bg-slate-50"
+    >
+      <td className="flex items-center gap-4 p-4">{item.subject.name}</td>
+      <td>{item.class.name}</td>
+      <td className="hidden md:table-cell">{item.teacher.name + " " + item.teacher.surname}</td>
+      <td>
+        <div className="flex items-center gap-2">
+          {role === "admin" && (
+            <>
+              <FormModal table="lesson" type="update" data={item} />
+              <FormModal table="lesson" type="delete" id={item.id} />
+            </>
+          )}
+        </div>
+      </td>
+    </tr>
+  );
+
   const [data, count] = await prisma.$transaction([
     prisma.lesson.findMany({
       where: query,
@@ -111,10 +118,10 @@ const LessonListPage = async ({
         <div className="flex w-full flex-col items-center gap-4 md:w-auto md:flex-row">
           <TableSearch />
           <div className="flex items-center gap-4 self-end">
-            <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
+            <button className="bg-edunexusYellow flex h-8 w-8 items-center justify-center rounded-full">
               <Image src="/filter.png" alt="" width={14} height={14} />
             </button>
-            <button className="bg-lamaYellow flex h-8 w-8 items-center justify-center rounded-full">
+            <button className="bg-edunexusYellow flex h-8 w-8 items-center justify-center rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
             {role === "admin" && <FormModal table="lesson" type="create" />}
