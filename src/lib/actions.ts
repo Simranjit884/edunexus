@@ -40,3 +40,20 @@ export const updateSubject = async (currentState: CurrentState, data: SubjectSch
     return { success: false, error: true };
   }
 };
+
+export const deleteSubject = async (currentState: CurrentState, data: FormData) => {
+  const id = data.get("id") as string;
+  try {
+    await prisma.subject.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
+    // Do not revalidate here; let client refresh after toast
+    return { success: true, error: false };
+  } catch (err) {
+    console.log(err);
+    return { success: false, error: true };
+  }
+};
