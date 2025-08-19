@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import React from "react";
 
 // USE LAZY LOADING
@@ -16,19 +16,25 @@ const TeacherForm = dynamic(() => import("./forms/TeacherForm"), {
 const StudentForm = dynamic(() => import("./forms/StudentForm"), {
   loading: () => <h1>Loading...</h1>,
 });
-
+const SubjectForm = dynamic(() => import("./forms/SubjectForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
 // Define a generic type for form data
 type FormData = Record<string, unknown>;
 
 // Define the form component type
-type FormComponent = (type: "create" | "update", data?: FormData) => React.ReactElement;
+type FormComponent = (
+  setOpen: Dispatch<SetStateAction<boolean>>,
+  type: "create" | "update",
+  data?: FormData,
+) => React.ReactElement;
 
 const forms: Record<string, FormComponent> = {
-  teacher: (type, data) => <TeacherForm type={type} data={data} />,
-  student: (type, data) => <StudentForm type={type} data={data} />,
+  subject: (setOpen, type, data) => <SubjectForm type={type} data={data} setOpen={setOpen} />,
+  teacher: (type, data) => <TeacherForm type={type} data={data} setOpen={setOpen} />,
+  student: (type, data) => <StudentForm type={type} data={data} setOpen={setOpen} />,
   // Add placeholder forms for other types until they are implemented
   parent: (type, data) => <div>Parent Form - {type} - Coming Soon</div>,
-  subject: (type, data) => <div>Subject Form - {type} - Coming Soon</div>,
   class: (type, data) => <div>Class Form - {type} - Coming Soon</div>,
   lesson: (type, data) => <div>Lesson Form - {type} - Coming Soon</div>,
   exam: (type, data) => <div>Exam Form - {type} - Coming Soon</div>,
@@ -97,7 +103,7 @@ const FormModal = ({
         </button>
       </form>
     ) : type === "create" || type === "update" ? (
-      forms[table](type, data)
+      forms[table](setOpen, type, data)
     ) : (
       "Form not found!"
     );

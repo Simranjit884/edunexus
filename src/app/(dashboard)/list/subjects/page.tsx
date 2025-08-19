@@ -101,7 +101,7 @@ const SubjectListPage = async ({
             <button className="bg-edunexusYellow flex h-8 w-8 items-center justify-center rounded-full">
               <Image src="/sort.png" alt="" width={14} height={14} />
             </button>
-            {role === "admin" && <FormModal table="teacher" type="create" />}
+            {role === "admin" && <FormModal table="subject" type="create" />}
           </div>
         </div>
       </div>
