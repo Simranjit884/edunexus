@@ -8,6 +8,7 @@ import React from "react";
 import { useFormState } from "react-dom";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { FormContainerProps } from "./FormContainer";
 
 const deleteActionMap = {
   subject: deleteSubject,
@@ -51,7 +52,9 @@ type FormComponent = (
 ) => React.ReactElement;
 
 const forms: Record<string, FormComponent> = {
-  subject: (setOpen, type, data) => <SubjectForm type={type} data={data} setOpen={setOpen} />,
+  subject: (setOpen, type, data, relatedData) => (
+    <SubjectForm type={type} data={data} setOpen={setOpen} relatedData={relatedData} />
+  ),
   teacher: (setOpen, type, data) => <TeacherForm type={type} data={data} setOpen={setOpen} />,
   student: (setOpen, type, data) => <StudentForm type={type} data={data} setOpen={setOpen} />,
   // Add placeholder forms for other types until they are implemented
@@ -71,24 +74,8 @@ const FormModal = ({
   type,
   data,
   id,
-}: {
-  table:
-    | "teacher"
-    | "student"
-    | "parent"
-    | "subject"
-    | "class"
-    | "lesson"
-    | "exam"
-    | "assignment"
-    | "result"
-    | "attendance"
-    | "event"
-    | "announcement";
-  type: "create" | "update" | "delete";
-  data?: FormData;
-  id?: number | string;
-}) => {
+  relatedData,
+}: FormContainerProps & { relatedData?: any }) => {
   const size = type === "create" ? "w-8 h-8 p-2" : "w-7 h-7";
   const bgColor =
     type === "create"
@@ -140,7 +127,7 @@ const FormModal = ({
         </button>
       </form>
     ) : type === "create" || type === "update" ? (
-      forms[table](setOpen, type, data)
+      forms[table](setOpen, type, data, relatedData)
     ) : (
       "Form not found!"
     );
