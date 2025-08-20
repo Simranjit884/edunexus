@@ -1,6 +1,12 @@
 "use client";
 
-import { deleteSubject } from "@/lib/actions";
+import {
+  deleteClass,
+  deleteExam,
+  deleteStudent,
+  deleteSubject,
+  deleteTeacher,
+} from "@/lib/actions";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
@@ -12,10 +18,10 @@ import { FormContainerProps } from "./FormContainer";
 
 const deleteActionMap = {
   subject: deleteSubject,
-  class: deleteSubject,
-  teacher: deleteSubject,
-  student: deleteSubject,
-  exam: deleteSubject,
+  class: deleteClass,
+  teacher: deleteTeacher,
+  student: deleteStudent,
+  exam: deleteExam,
   // TODO: OTHER DELETE ACTIONS
   parent: deleteSubject,
   lesson: deleteSubject,
@@ -40,6 +46,12 @@ const StudentForm = dynamic(() => import("./forms/StudentForm"), {
 const SubjectForm = dynamic(() => import("./forms/SubjectForm"), {
   loading: () => <h1>Loading...</h1>,
 });
+const ClassForm = dynamic(() => import("./forms/ClassForm"), {
+  loading: () => <h1>Loading...</h1>,
+});
+// const ExamForm = dynamic(() => import("./forms/ExamForm"), {
+//   loading: () => <h1>Loading...</h1>,
+// });
 // Define a generic type for form data
 type FormData = Record<string, unknown>;
 
@@ -48,18 +60,25 @@ type FormData = Record<string, unknown>;
 type FormComponent = (
   setOpen: Dispatch<SetStateAction<boolean>>,
   type: "create" | "update",
-  data?: FormData,
+  data?: any,
+  relatedData?: any,
 ) => React.ReactElement;
 
 const forms: Record<string, FormComponent> = {
   subject: (setOpen, type, data, relatedData) => (
     <SubjectForm type={type} data={data} setOpen={setOpen} relatedData={relatedData} />
   ),
-  teacher: (setOpen, type, data) => <TeacherForm type={type} data={data} setOpen={setOpen} />,
-  student: (setOpen, type, data) => <StudentForm type={type} data={data} setOpen={setOpen} />,
+  class: (setOpen, type, data, relatedData) => (
+    <ClassForm type={type} data={data} setOpen={setOpen} relatedData={relatedData} />
+  ),
+  teacher: (setOpen, type, data, relatedData) => (
+    <TeacherForm type={type} data={data} setOpen={setOpen} relatedData={relatedData} />
+  ),
+  student: (setOpen, type, data, relatedData) => (
+    <StudentForm type={type} data={data} setOpen={setOpen} relatedData={relatedData} />
+  ),
   // Add placeholder forms for other types until they are implemented
   parent: (type, data) => <div>Parent Form - {type} - Coming Soon</div>,
-  class: (type, data) => <div>Class Form - {type} - Coming Soon</div>,
   lesson: (type, data) => <div>Lesson Form - {type} - Coming Soon</div>,
   exam: (type, data) => <div>Exam Form - {type} - Coming Soon</div>,
   assignment: (type, data) => <div>Assignment Form - {type} - Coming Soon</div>,
