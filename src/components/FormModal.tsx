@@ -15,6 +15,7 @@ import { useFormState } from "react-dom";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { FormContainerProps } from "./FormContainer";
+import ExamForm from "./forms/ExamForm";
 
 const deleteActionMap = {
   subject: deleteSubject,
@@ -77,10 +78,12 @@ const forms: Record<string, FormComponent> = {
   student: (setOpen, type, data, relatedData) => (
     <StudentForm type={type} data={data} setOpen={setOpen} relatedData={relatedData} />
   ),
+  exam: (setOpen, type, data, relatedData) => (
+    <ExamForm type={type} data={data} setOpen={setOpen} relatedData={relatedData} />
+  ),
   // Add placeholder forms for other types until they are implemented
   parent: (type, data) => <div>Parent Form - {type} - Coming Soon</div>,
   lesson: (type, data) => <div>Lesson Form - {type} - Coming Soon</div>,
-  exam: (type, data) => <div>Exam Form - {type} - Coming Soon</div>,
   assignment: (type, data) => <div>Assignment Form - {type} - Coming Soon</div>,
   result: (type, data) => <div>Result Form - {type} - Coming Soon</div>,
   attendance: (type, data) => <div>Attendance Form - {type} - Coming Soon</div>,

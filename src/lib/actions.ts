@@ -32,7 +32,6 @@ export const createSubject = async (currentState: CurrentState, data: SubjectSch
 };
 
 export const updateSubject = async (currentState: CurrentState, data: SubjectSchema) => {
-  console.log("inside updatesubject-----");
   try {
     await prisma.subject.update({
       where: {
