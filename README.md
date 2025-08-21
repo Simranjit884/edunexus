@@ -10,7 +10,6 @@ EduNexus is a full‑stack, role‑aware school management dashboard built with 
 - Create and update lessons, exams, assignments, results, and attendance
 - Browse data with searchable, paginated tables and charts
 - Upload profile images (Cloudinary) and view media via optimized `next/image`
-- Authenticate and manage users via Clerk (admin/teacher/parent/student roles)
 - Visualize calendars, counts, and performance using charts
 
 ### Core features
@@ -151,26 +150,12 @@ Coming soon.
 
 ## Screenshots
 
-In progress. Placeholders below — replace with real screenshots when available:
+In progress.
 
 ![Dashboard](docs/screenshots/dashboard.png)
 ![Teachers List](docs/screenshots/teachers-list.png)
 ![Create/Update Teacher](docs/screenshots/teacher-form.png)
 ![Calendar](docs/screenshots/calendar.png)
-
----
-
-## Future Improvements
-
-- Role‑based access control (fine‑grained permissions per role)
-- Bulk import/export (CSV/Excel) for roster and results
-- Attendance automation (QR/RFID), and richer reporting
-- Email/SMS notifications for announcements, exams, and assignments
-- Caching and pagination via server components and data layer
-- E2E and unit tests (Playwright/Jest) with CI pipelines
-- Internationalization (i18n) and improved accessibility (a11y)
-- Offline support and optimistic UI for key flows
-- Audit logs and activity history per entity
 
 ---
 
